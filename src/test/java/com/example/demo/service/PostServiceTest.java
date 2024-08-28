@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.dto.PostCreateDto;
-import com.example.demo.model.dto.PostUpdateDto;
+import com.example.demo.common.domain.exception.ResourceNotFoundException;
+import com.example.demo.post.domain.PostCreate;
+import com.example.demo.post.domain.PostUpdate;
+import com.example.demo.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,7 +48,7 @@ class PostServiceTest {
     @Test
     void create_는_게시물을_생성한다() {
         // given
-        var postCreateDto = PostCreateDto.builder()
+        var postCreateDto = PostCreate.builder()
                 .writerId(2L)
                 .content("contenttttt")
                 .build();
@@ -66,7 +67,7 @@ class PostServiceTest {
     void update_는_게시물을_수정한다() {
         // given
         long id = 2L;
-        var postUpdateDto = PostUpdateDto.builder()
+        var postUpdateDto = PostUpdate.builder()
                 .content("updated content")
                 .build();
 
