@@ -12,35 +12,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Sql("/sql/user-repository-test-data.sql")
-class UserRepositoryTest {
+class UserJpaRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     @Test
     void findByIdAndStatus_로_유저데이터를_찾아올_수_있다() {
-        Optional<UserEntity> byIdAndStatus = userRepository.findByIdAndStatus(1L, UserStatus.ACTIVE);
+        Optional<UserEntity> byIdAndStatus = userJpaRepository.findByIdAndStatus(1L, UserStatus.ACTIVE);
 
         assertThat(byIdAndStatus.isPresent()).isTrue();
     }
 
     @Test
     void findByIdAndStatus_는_데이터가_없으면_Optional_empty_를_내려준다() {
-        Optional<UserEntity> byIdAndStatus = userRepository.findByIdAndStatus(1L, UserStatus.PENDING);
+        Optional<UserEntity> byIdAndStatus = userJpaRepository.findByIdAndStatus(1L, UserStatus.PENDING);
         assertThat(byIdAndStatus.isPresent()).isFalse();
         assertThat(byIdAndStatus.isEmpty()).isTrue();
     }
 
     @Test
     void findByEmailAndStatus_로_유저데이터를_찾아올_수_있다() {
-        Optional<UserEntity> byIdAndStatus = userRepository.findByEmailAndStatus("bht9011@gmail.com", UserStatus.ACTIVE);
+        Optional<UserEntity> byIdAndStatus = userJpaRepository.findByEmailAndStatus("bht9011@gmail.com", UserStatus.ACTIVE);
 
         assertThat(byIdAndStatus.isPresent()).isTrue();
     }
 
     @Test
     void findByEmailAndStatus_는_데이터가_없으면_Optional_empty_를_내려준다() {
-        Optional<UserEntity> byIdAndStatus = userRepository.findByEmailAndStatus("bht9011@gmail.com", UserStatus.PENDING);
+        Optional<UserEntity> byIdAndStatus = userJpaRepository.findByEmailAndStatus("bht9011@gmail.com", UserStatus.PENDING);
         assertThat(byIdAndStatus.isPresent()).isFalse();
         assertThat(byIdAndStatus.isEmpty()).isTrue();
     }
