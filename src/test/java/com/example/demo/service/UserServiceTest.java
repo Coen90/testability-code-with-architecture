@@ -25,7 +25,6 @@ import static org.mockito.ArgumentMatchers.any;
     @Sql(value = "/sql/user-service-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
     @Sql(value = "/sql/delete-all-data.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
-@Sql("/sql/user-service-test-data.sql")
 class UserServiceTest {
 
     @Autowired
@@ -60,13 +59,12 @@ class UserServiceTest {
     @Test
     void getById_은_ACTIVE_유저데이터를_찾아올_수_있다() {
         //given
-        String email = "bht9012@gmail.com";
-
         //when
         UserEntity result = userService.getById(2L);
 
         //then
         assertThat(result.getNickname()).isEqualTo("coen");
+        assertThat(result.getEmail()).isEqualTo("bht9011@gmail.com");
     }
 
     @Test
