@@ -9,8 +9,7 @@ import com.example.demo.post.service.PostServiceImpl;
 import com.example.demo.post.service.port.PostRepository;
 import com.example.demo.user.controller.UserController;
 import com.example.demo.user.controller.UserCreateController;
-import com.example.demo.user.controller.port.*;
-import com.example.demo.user.service.CertificationServiceImpl;
+import com.example.demo.user.service.CertificationService;
 import com.example.demo.user.service.UserServiceImpl;
 import com.example.demo.user.service.port.MailSender;
 import com.example.demo.user.service.port.UserRepository;
@@ -21,10 +20,6 @@ public class TestContainer {
     public final MailSender mailSender;
     public final UserRepository userRepository;
     public final PostRepository postRepository;
-    public final UserReadService userReadService;
-    public final UserUpdateService userUpdateService;
-    public final UserCreateService userCreateService;
-    public final AuthenticationService authenticationService;
     public final PostService postService;
     public final CertificationService certificationService;
     public final UserController userController;
@@ -42,27 +37,19 @@ public class TestContainer {
                 .userRepository(userRepository)
                 .clockHolder(clockHolder)
                 .build();
-        this.certificationService = new CertificationServiceImpl(mailSender);
+        this.certificationService = new CertificationService(mailSender);
         UserServiceImpl userService = UserServiceImpl.builder()
                 .uuidHolder(uuidHolder)
-                .certificationService(new CertificationServiceImpl(mailSender))
+                .certificationService(new CertificationService(mailSender))
                 .clockHolder(clockHolder)
                 .userRepository(userRepository)
                 .build();
-
-        this.userReadService = userService;
-        this.userUpdateService = userService;
-        this.userCreateService = userService;
-        this.authenticationService = userService;
         this.userController = UserController.builder()
-                .authenticationService(this.authenticationService)
-                .userReadService(this.userReadService)
-                .userCreateService(this.userCreateService)
-                .userUpdateService(this.userUpdateService)
+                .userService(userService)
                 .build();
-        this.userCreateController = new UserCreateController(this.userCreateService);
-        this.postController = new PostController(this.postService);
-        this.postCreateController = new PostCreateController(this.postService);
+        this.userCreateController = UserCreateController.builder().userService(userService).build();
+        this.postController = PostController.builder().postService(postService).build();
+        this.postCreateController = PostCreateController.builder().postService(postService).build();
     }
 
 }

@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Builder //Test에서 사용하기 위해 추가
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserCreateService, UserReadService, UserUpdateService, AuthenticationService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final CertificationService certificationService;
