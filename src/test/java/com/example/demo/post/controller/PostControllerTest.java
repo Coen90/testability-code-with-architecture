@@ -84,7 +84,7 @@ class PostControllerTest {
                         .build())
                 .build());
         //when
-        ResponseEntity<PostResponse> result = postController.updatePost(1L, PostUpdate.builder().content("modified").build());
+        ResponseEntity<PostResponse> result = postController.update(1L, PostUpdate.builder().content("modified").build());
 
         //then
         assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));

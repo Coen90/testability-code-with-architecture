@@ -30,7 +30,7 @@ class PostCreateControllerTest {
                 .lastLoginAt(0L)
                 .build());
         // when
-        ResponseEntity<PostResponse> result = postCreateController.createPost(PostCreate.builder()
+        ResponseEntity<PostResponse> result = postCreateController.create(PostCreate.builder()
                 .content("컨텐츠")
                 .writerId(2L)
                 .build());
