@@ -10,7 +10,7 @@ class CertificationServiceTest {
     void 이메일과_컨텐츠가_제대로_만들어져_보내지는지_테스트() {
         //given
         FakeMailSender mailSender = new FakeMailSender();
-        CertificationService certificationService = new CertificationService(mailSender);
+        CertificationServiceImpl certificationService = new CertificationServiceImpl(mailSender);
 
         //when
         certificationService.send("bht9011@gmail.com", 2L, "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
